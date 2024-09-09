@@ -1,0 +1,41 @@
+import fileinput
+
+inputData = ''
+
+for line in fileinput.input():
+    inputData += line
+
+def convert_to_decimal(X, B):
+    decimal_value = 0
+    for i, digit in enumerate(X[::-1]):
+        decimal_value += digit * (B ** i)
+    return decimal_value
+
+def decrypt_code(X_real, X_imaginary, B_real, B_imaginary):
+    X = complex(X_real, X_imaginary)
+    B = complex(B_real, B_imaginary)
+
+    possible_digits = []
+    for a_real in range(1, abs(int(B.real)) + 1):
+        for a_imaginary in range(1, abs(int(B.imag)) + 1):
+            a = complex(a_real, a_imaginary)
+            decimal_value = convert_to_decimal([a.real, a.imag], B.real)
+            if decimal_value == X.real:
+                possible_digits.append((a_real, a_imaginary))
+
+    if not possible_digits:
+        return "The code cannot be decrypted."
+
+    return ",".join(str(digit) for digit in possible_digits[0])
+
+def code_here():
+    T, *cases = map(int, inputData.split())
+    output = []
+
+    for i in range(0, len(cases), 4):
+        X_real, X_imaginary, B_real, B_imaginary = cases[i:i+4]
+        output.append(decrypt_code(X_real, X_imaginary, B_real, B_imaginary))
+
+    return "\n".join(output)
+
+print(code_here())

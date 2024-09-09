@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #333;
+        }
+        input[type="text"], input[type="email"], input[type="password"], select, input[type="tel"], input[type="date"] {
+            width: calc(100% - 10px);
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus, input[type="tel"]:focus, input[type="date"]:focus {
+            border-color: #007bff;
+        }
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'%3E%3Cpath fill='%23333333' d='M6 0L0 6h12'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px 6px;
+            padding-right: 30px;
+            color: #495057;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .icon {
+            position: relative;
+            top: 4px;
+            right: 30px;
+            color: #666;
+        }
+        h2 {
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: #007bff;
+            text-align: center;
+        }
+        .google-button {
+            background-color: #db4437;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .google-button i {
+            margin-right: 10px;
+        }
+        .google-button:hover {
+            background-color: #c23321;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2><i class="fas fa-user icon"></i> Sign Up</h2>
+        <form id="signup-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" required>
+            </div>
+            <div class="form-group">
+                <label for="qualification">Highest Qualification</label>
+                <select id="qualification" required>
+                    <option value="">Select Qualification</option>
+                    <option value="high-school">High School</option>
+                    <option value="diploma">Diploma</option>
+                    <option value="bachelors">Bachelor's Degree</option>
+                    <option value="masters">Master's Degree</option>
+                    <option value="phd">PhD</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Sign Up</button>
+            </div>
+        </form>
+        <button class="google-button" id="google-signup">
+            <i class="fab fa-google"></i> Sign Up with Google
+        </button>
+    </div>
+
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCYfF54XEX9BcOhxRWNw0Tw2Q5F3LMbMB8",
+            authDomain: "carrier-connecting-hub.firebaseapp.com",
+            projectId: "carrier-connecting-hub",
+            storageBucket: "carrier-connecting-hub.appspot.com",
+            messagingSenderId: "251539793563",
+            appId: "1:251539793563:web:d4f9067c4102ac47e8083e",
+            measurementId: "G-QNLGVX55Z5"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Get a reference to the Firebase Realtime Database
+        const database = firebase.database();
+
+        // Sign up form submission
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const fullname = document.getElementById('fullname').value;
+            const phone = document.getElementById('phone').value;
+            const gender = document.getElementById('gender').value;
+            const dob = document.getElementById('dob').value;
+            const qualification = document.getElementById('qualification').value;
+
+            // Sign up with email and password
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed up successfully
+                    console.log('User signed up successfully:', userCredential.user);
+
+                    // Add user information to Realtime Database
+                    database.ref('users').push({
+                        email: email,
+                        fullname: fullname,
+                        phone: phone,
+                        gender: gender,
+                        dob: dob,
+                        qualification: qualification
+                    })
+                    .then(() => {
+                        console.log('User information added successfully');
+                        // Redirect user to another page after successful submission
+                        window.location.href = "options.html";
+                    })
+                    .catch((error) => {
+                        console.error('Error adding user information: ', error);
+                    });
+                })
+                .catch((error) => {
+                    // Handle errors
+                    console.error('Sign up error:', error.message);
+                });
+        });
+
+        // Google Sign-In
+        document.getElementById('google-signup').addEventListener('click', function() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    const user = result.user;
+                    console.log('Google Sign-In successful:', user);
+
+                    // Add user information to Realtime Database
+                    database.ref('users').push({
+                        email: user.email,
+                        fullname: user.displayName,
+                        phone: user.phoneNumber || '',
+                        gender: '',
+                        dob: '',
+                        qualification: ''
+                    })
+                    .then(() => {
+                        console.log('User information added successfully');
+                        // Redirect user to another page after successful submission
+                        window.location.href = "options.html";
+                    })
+                    .catch((error) => {
+                        console.error('Error adding user information: ', error);
+                    });
+                })
+                .catch((error) => {
+                    console.error('Google Sign-In error:', error);
+                });
+        });
+    </script>
+</body>
+</html>

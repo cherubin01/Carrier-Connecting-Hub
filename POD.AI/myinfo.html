@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .profile-info {
+            margin: 20px 0;
+        }
+        .profile-info div {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>My Profile</h2>
+        <div class="profile-info" id="profile-info">
+            Loading...
+        </div>
+    </div>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCYfF54XEX9BcOhxRWNw0Tw2Q5F3LMbMB8",
+            authDomain: "carrier-connecting-hub.firebaseapp.com",
+            projectId: "carrier-connecting-hub",
+            storageBucket: "carrier-connecting-hub.appspot.com",
+            messagingSenderId: "251539793563",
+            appId: "1:251539793563:web:d4f9067c4102ac47e8083e",
+            measurementId: "G-QNLGVX55Z5"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Function to get user profile info
+        async function getUserProfile(uid) {
+            try {
+                const userDoc = await db.collection('users').doc(uid).get();
+                if (userDoc.exists) {
+                    return userDoc.data();
+                } else {
+                    throw new Error('User not found');
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                return null;
+            }
+        }
+
+        // Function to display user profile info
+        function displayUserProfile(profile) {
+            const profileInfoDiv = document.getElementById('profile-info');
+            if (profile) {
+                profileInfoDiv.innerHTML = `
+                    <div><strong>Email:</strong> ${profile.email}</div>
+                    <div><strong>Full Name:</strong> ${profile.fullname}</div>
+                    <div><strong>Phone:</strong> ${profile.phone}</div>
+                    <div><strong>Gender:</strong> ${profile.gender}</div>
+                    <div><strong>Date of Birth:</strong> ${profile.dob}</div>
+                    <div><strong>Qualification:</strong> ${profile.qualification}</div>
+                `;
+            } else {
+                profileInfoDiv.innerHTML = 'Error loading profile information.';
+            }
+        }
+
+        // Authenticate user and display profile
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                const profile = await getUserProfile(user.uid);
+                displayUserProfile(profile);
+            } else {
+                window.location.href = '/login'; // Redirect to login if not authenticated
+            }
+        });
+    </script>
+</body>
+</html>

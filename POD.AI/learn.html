@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Coding</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1f1f1f;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #1f1f1f, #2f2f2f, #1f1f1f, #2f2f2f);
+            background-size: 400% 400%;
+            z-index: -1;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .card {
+            width: calc(33.33% - 20px);
+            background-color: #282828;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-content a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .card-content a:hover {
+            color: #03a9f4;
+        }
+
+        .card-icon {
+            margin-bottom: 10px;
+            font-size: 36px;
+            color: #03a9f4;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            font-size: 16px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="container">
+        <div class="card" onclick="window.open('https://www.codecademy.com/', '_blank')">
+            <div class="card-content">
+                <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                <div class="card-title">Codecademy</div>
+                <div class="card-description">Learn to code interactively, for free.</div>
+            </div>
+        </div>
+        <div class="card" onclick="window.open('https://www.freecodecamp.org/', '_blank')">
+            <div class="card-content">
+                <div class="card-icon"><i class="fab fa-free-code-camp"></i></div>
+                <div class="card-title">freeCodeCamp</div>
+                <div class="card-description">Learn to code for free with millions of other learners around the world.</div>
+            </div>
+        </div>
+        <div class="card" onclick="window.open('https://www.leetcode.com/', '_blank')">
+            <div class="card-content">
+                <div class="card-icon"><i class="fab fa-leanpub"></i></div>
+                <div class="card-title">LeetCode</div>
+                <div class="card-description">Practice coding interviews, and get hired.</div>
+            </div>
+        </div>
+        <div class="card" onclick="window.open('https://www.geeksforgeeks.org/', '_blank')">
+            <div class="card-content">
+                <div class="card-icon"><i class="fas fa-brain"></i></div>
+                <div class="card-title">GeeksforGeeks</div>
+                <div class="card-description">A computer science portal for geeks.</div>
+            </div>
+        </div>
+        <div class="card" onclick="window.open('https://www.w3schools.com/', '_blank')">
+            <div class="card-content">
+                <div class="card-icon"><i class="fas fa-code"></i></div>
+                <div class="card-title">W3Schools</div>
+                <div class="card-description">The world's largest web developer site.</div>
+            </div>
+        </div>
+        <div class="card" onclick="window.open('https://www.mikedane.com/', '_blank')">
+            <div class="card-content">
+                <div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                <div class="card-title">Mike Dane</div>
+                <div class="card-description">Educational videos on programming and web development.</div>
+            </div>
+        </div>
+        <div class="card" onclick="window.open('https://code.org/', '_blank')">
+            <div class="card-content">
+                <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="card-title">Code.org</div>
+                <div class="card-description">Learn computer science and coding basics.</div>
+            </div>
+        </div>
+        <div class="card" onclick="window.open('https://www.codechef.com/', '_blank')">
+            <div class="card-content">
+                <div class="card-icon"><i class="fas fa-utensils"></i></div>
+                <div class="card-title">CodeChef</div>
+                <div class="card-description">Competitive programming community.</div>
+            </div>
+        </div>
+        <div class="card" onclick="window.open('https://www.codingninjas.com/', '_blank')">
+            <div class="card-content">
+                <div class="card-icon"><i class="fas fa-code"></i></div>
+                <div class="card-title">Coding Ninjas</div>
+                <div class="card-description">Online coding courses and competitions.</div>
+            </div>
+        </div>
+        <!-- Add more cards as needed -->
+    </div>
+</body>
+</html>
